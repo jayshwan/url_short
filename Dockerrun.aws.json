@@ -1,0 +1,14 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "portMappings": [
+        {
+          "hostPort": 32766,
+          "containerPort": 8080
+        }
+      ],
+  "Ports": [
+    {
+      "ContainerPort": 8080
+    }
+  ]
+}
