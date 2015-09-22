@@ -1,4 +1,4 @@
-# url_short_service
+# url_short
 This repo contains the following files:
 url_short.py -- python file to start cherrypy REST service to map full URLs to short URLs
 Dockerfile -- dockerfile to setup url short service as a Docker app
