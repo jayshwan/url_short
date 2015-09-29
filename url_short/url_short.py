@@ -62,8 +62,9 @@ class UrlShortService:
            for k in urls:
              url = urls[k]
              if url['short_url'] == shortUrl:
-               return( 'The full URL for %s is %s\n' % (
-                    shortUrl, url['full_url']))
+              raise cherrypy.HTTPRedirect("http://"+url['full_url'])
+#               return( 'The full URL for %s is %s\n' % (
+#                    shortUrl, url['full_url']))
            return('No full url for short url \'%s\'\n' % shortUrl)
 
     def POST(self, fullUrl):
