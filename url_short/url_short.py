@@ -3,6 +3,8 @@ import string
 import random
 import time
 
+# Create dictionary to hold URL mappings
+# In production, this should be a database
 urls = {
     '1': {
         'full_url': 'www.google.com',
@@ -20,6 +22,7 @@ urls = {
     }
 }
 
+# Decorate GET to limit the rate 
 def RateLimited(maxPerSecond):
     minInterval = 1.0 / float(maxPerSecond)
     def decorate(func):
@@ -43,7 +46,7 @@ class UrlShortService:
 
     @RateLimited(2)  # 2 per second at most
     def GET(self, shortUrl=None):
-
+        # No shortURL passed in -- display input boxes 
         if shortUrl is None:
             return """<html>
                <head></head>
@@ -58,6 +61,7 @@ class UrlShortService:
                  </form>
               </body>
             </html>"""
+        # ShortURL passed int -- search database for it and redirect if found
         else:
            for k in urls:
              url = urls[k]
@@ -67,6 +71,7 @@ class UrlShortService:
 #                    shortUrl, url['full_url']))
            return('No full url for short url \'%s\'\n' % shortUrl)
 
+#   Add new entry in database
     def POST(self, fullUrl):
 
         id = str(max([int(_) for _ in urls.keys()]) + 1)
@@ -79,6 +84,7 @@ class UrlShortService:
         return ('Create a new url with short url: %s\n' 
                    % urls[id]['short_url'])
 
+#   Modify the address of a short URL
     def PUT(self, shortUrl=None, fullUrl=None):
         if shortUrl is None:
           return('No URL specified\n' )
@@ -92,6 +98,7 @@ class UrlShortService:
                     shortUrl, fullUrl))
           return('No short url %s in database\n' % shortUrl)
 
+# Delete an entry in the database
     def DELETE(self, shortUrl=None):
         if shortUrl is None:
           return('No URL specified\n' )
@@ -113,6 +120,7 @@ if __name__ == '__main__':
          }
     )
 
+#   Listen on all addresses  
     cherrypy.server.socket_host = '0.0.0.0'
     cherrypy.engine.start()
     cherrypy.engine.block()
