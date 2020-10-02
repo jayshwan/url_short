@@ -14,6 +14,6 @@ docker build -t urlshortservice .
 docker run -p 32777:8080 urlshortservice
 
 3. Connect to url shortening service:
-http://<host url>:32777/api/UrlShortService
+http://localhost:32777/api/UrlShortService
 
 

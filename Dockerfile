@@ -1,20 +1,21 @@
 # This is a comment
 
-FROM ubuntu:14.04
+FROM ubuntu:20.04
 
 MAINTAINER Jason Hartmann <hartmann4@msn.com> 
 
 EXPOSE 8080
 
-RUN apt-get install -y python 
+RUN apt-get update
+
+RUN apt-get install -y python3
 
 RUN apt-get -y install curl 
 
-RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
-RUN python get-pip.py
+RUN apt-get -y install python3-pip
 
-RUN pip install cherrypy
+RUN pip3 install cherrypy
 
-ADD  /url_short /url_short
+ADD /url_short /url_short
 
-CMD python /url_short/url_short.py
+CMD python3 /url_short/url_short.py
